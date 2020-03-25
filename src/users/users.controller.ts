@@ -4,7 +4,7 @@ import { User } from "./user.interface";
 
 @Controller('users')
 export class UsersController {
-    constructor(private readonly usersService: UsersService) {}
+    constructor(private readonly usersService: UsersService) { }
 
     @Post()
     async addUser(
@@ -12,7 +12,7 @@ export class UsersController {
         @Body('password') userPassword: string
     ) {
         const generatedId = await this.usersService.addUser(userEmail, userPassword);
-        return { id:generatedId };
+        return { id: generatedId };
     }
 
     @Get()
@@ -40,4 +40,23 @@ export class UsersController {
         await this.usersService.deleteUser(userId);
         return null;
     }
+
+    @Patch('add/:userId/:prodId')
+    addId(
+        @Param('userId') userId: string,
+        @Param('prodId') prodId: string
+    ) {
+        const updatedId = this.usersService.addId(userId, prodId);
+        return updatedId;
+    }
+
+    @Patch('remove/:userId/:prodId')
+    removeId(
+        @Param('userId') userId: string,
+        @Param('prodId') prodId: string
+    ) {
+        const updatedId = this.usersService.removeId(userId, prodId);
+        return updatedId;
+    }
+
 }
