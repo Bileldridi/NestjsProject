@@ -20,7 +20,13 @@ export class UsersController {
         const users = await this.usersService.getUsers();
         return users;
     }
-
+    @Get('pop')
+    async populate() {
+        const pop = await this.usersService.popProd();
+        return pop;
+    }
+    // wa9telli t3ayet lel pop hedhi li 9a3da t'executi 5ater 3amel get w direct variable donc ki ta3mel /pop el pop walla ya9ra variable 
+    // w i5addem hedhi heka 3leh talla3et el pop fou9 el api hedhi 
     @Get(':id')
     getUser(@Param('id') userId: string) {
         return this.usersService.getUser(userId);
@@ -59,10 +65,6 @@ export class UsersController {
         return updatedId;
     }
 
-    @Get('pop')
-    async populate() {
-        const pop = await this.usersService.popProd();
-        return pop;
-    }
+
 
 }
