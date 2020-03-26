@@ -59,4 +59,10 @@ export class UsersController {
         return updatedId;
     }
 
+    @Get('pop')
+    async populate() {
+        const pop = await this.usersService.popProd();
+        return pop;
+    }
+
 }

@@ -55,4 +55,9 @@ export class UsersService {
         return updateId;
     }
 
+    async popProd() {
+        const populated = await this.userSchema.find().populate({path:'products'}).exec();
+        return populated;
+    }
+
 }
