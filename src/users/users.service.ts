@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { User } from './user.interface';
+import * as nodemailer from 'nodemailer';
 
 @Injectable()
 export class UsersService {

@@ -4,11 +4,13 @@ import { AppService } from './app.service';
 import { ProductsModule } from './products/products.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UsersModule } from './users/users.module';
+import { ApisController } from './apis/apis.controller';
+import { ApisService } from './apis/apis.service';
 
 
 @Module({
   imports: [ProductsModule, UsersModule, MongooseModule.forRoot('mongodb://localhost/nest')],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, ApisController],
+  providers: [AppService, ApisService],
 })
 export class AppModule {}

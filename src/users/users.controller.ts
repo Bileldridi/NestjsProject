@@ -65,6 +65,4 @@ export class UsersController {
         return updatedId;
     }
 
-
-
 }
