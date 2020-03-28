@@ -1,13 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import * as nodemailer from 'nodemailer';
-// import * as path from 'path';
-
+import { interval } from 'rxjs';
 
 @Injectable()
 
 export class ApisService {
 
+    constructor() {}
     async sendMail() {
+        const observable = interval(10000);
         let transport = nodemailer.createTransport({
             service : 'Gmail',
             auth: {
@@ -22,6 +23,9 @@ export class ApisService {
             to:"<drd.bilel@gmail.com>",
             subject:"Nodemail"
         };
+        observable.subscribe(x => {transport.sendMail(msg), console.log('hello')});
+        
+        
         return await transport.sendMail(msg);
     }
 

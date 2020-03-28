@@ -17,6 +17,16 @@ export class ApisController {
     }
 
     @Post('upload')
+    // ************     first method      ****************
+    // @UseInterceptors(FileInterceptor('file'))
+    // @Bind(UploadedFile())
+    // uploadFile(file) {
+    //     const path = './src/images/' + file.originalname;
+    //     let fileStream = createWriteStream(path);
+    //     fileStream.write(file.buffer);
+    //     fileStream.end();
+    //     console.log(file);
+    //   ******    methode with @Bind    ******
     @UseInterceptors(FileInterceptor('file', {
         storage: multer.diskStorage({
           destination(req, file, cb) {
@@ -37,6 +47,9 @@ export class ApisController {
         @Param('filename') name: string,
         @Res() res
     ) {
+        // **********          first method         ************
+        // const filepath = await path.join("./src/images/", name);
+        // return res.sendfile(filepath);
         return res.sendFile(name, { root: path.join('src/images', '/') });
     }
 
