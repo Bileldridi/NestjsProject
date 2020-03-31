@@ -4,6 +4,8 @@ import { UserSchema } from "./user.schema";
 import { UsersController } from "./users.controller";
 import { UsersService } from "./users.service";
 import { ProductSchema } from "src/products/product.model";
+import { AuthService } from "src/auth/auth.service";
+
 
 @Module({
     imports: [
@@ -11,6 +13,7 @@ import { ProductSchema } from "src/products/product.model";
         MongooseModule.forFeature([{name: 'Product', schema: ProductSchema}])
     ],
     controllers: [UsersController],
-    providers: [UsersService]
+    providers: [UsersService, AuthService],
+    exports: [UsersService]
 })
 export class UsersModule {}

@@ -3,7 +3,6 @@ import { ApisService } from './apis.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { createWriteStream } from 'fs';
 import * as path from 'path';
-import { diskStorage } from 'multer';
 import * as multer from 'multer';
 
 

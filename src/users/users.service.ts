@@ -2,11 +2,39 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { User } from './user.interface';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
 
     constructor(@InjectModel('User') private readonly userSchema: Model<User>) { }
+
+    async create(email: string, password: string) {
+        const user = await this.userSchema.findOne({email});
+        if (user) {
+            throw new NotFoundException('Mail already exists');
+        }
+        const newUser = new this.userSchema({
+            email,
+            password
+        })
+        const result = await newUser.save();
+        console.log(result);
+        
+        return result;
+    }
+
+    async findByLogin(email: string, password: string) {
+        const user = await this.userSchema.findOne({email});
+        if (!user) {
+            throw new NotFoundException('Invalid Mail');
+        }
+
+        if(await bcrypt.compare(password, user.password)){
+            return user;
+        }
+        }
+        
 
     async addUser(email: string, password: string) {
         const newUser = new this.userSchema({
@@ -58,6 +86,19 @@ export class UsersService {
     async popProd() {
         const populated = await this.userSchema.find().populate({path:'products'}).exec();
         return populated;
+    }
+
+    // async findOneByToken(token) {
+    //     if (token === 'ironNest')
+    //     return  {message: 'Auth successful',
+    //     token: token};
+    //     else
+    //     return null;
+    // }
+
+    async findByPayload(payload: any) {
+        const {email} = payload;
+        return await this.userSchema.findOne({email});
     }
 
 }
